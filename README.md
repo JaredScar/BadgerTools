@@ -49,7 +49,11 @@ As seen in the clip below, rusty-sir has colors in his username, however BadgerT
 
 https://i.gyazo.com/83dc4b3f6ea2e2ec42139c7c51d43847.gif
 
+**Permission to use BadgerTools commands (just /spectate for now):**
 
+```
+BadgerTools.Commands
+```
 
 **Configuration for tags**
 
