@@ -48,7 +48,7 @@ end
 function GetPlayers()
     local players = {}
 
-    for i = 0, 31 do
+    for _, i in ipairs(GetActivePlayers()) do
         if NetworkIsPlayerActive(i) then
             table.insert(players, i)
         end
@@ -59,7 +59,7 @@ end
 function GetPlayersButSkipMyself()
     local players = {}
 
-    for i = 0, 31 do
+    for _, i in ipairs(GetActivePlayers()) do
         if NetworkIsPlayerActive(i) then
 			if GetPlayerName(i) ~= GetPlayerName(PlayerId()) then
 				table.insert(players, i)
@@ -72,7 +72,7 @@ end
 
 function GetPlayersCountButSkipMe()
     local count = 0
-    for i = 0, 31 do
+    for _, i in ipairs(GetActivePlayers()) do
         if NetworkIsPlayerActive(i) then
 			if GetPlayerPed(i) ~= GetPlayerPed(-1) then
 				count = count + 1
@@ -381,7 +381,7 @@ Citizen.CreateThread(function()
 		NetworkSetVoiceActive(true)
 		local playersTalking = {'empty'}
 		local counter = 1
-		for i=0,31 do
+		for _, i in ipairs(GetActivePlayers()) do
 			if NetworkIsPlayerTalking(i) then
 				local playerCoords2 = GetEntityCoords(GetPlayerPed(i))
 				local playerCoords = GetEntityCoords(GetPlayerPed(-1))
