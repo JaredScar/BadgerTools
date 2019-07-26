@@ -122,8 +122,6 @@ AddEventHandler('Permissions:Granted', function()
 			-- They don't want to spectate anymore
 			isSpecatingBool = false
 			SetEntityNoCollisionEntity(GetPlayerPed(-1), GetPlayerPed(players[playerIsSpectatingPlayer]), false)
-			DetachEntity(GetPlayerPed(-1), false, false)
-			SetEntityCoords(GetPlayerPed(-1), savedCoords.x, savedCoords.y, savedCoords.z) -- Teleport them
 			playerIsSpectatingPlayer = nil
 			spectatePlayer(GetPlayerPed(-1))
 			ShowNotification("~g~Success: No longer spectating anyone!")
@@ -131,6 +129,8 @@ AddEventHandler('Permissions:Granted', function()
 			TriggerServerEvent('BadgerTools:UserTag', true)
 			SetEntityInvincible(GetPlayerPed(-1), false)
 			SetPlayerInvincible(GetPlayerPed(-1), false)
+			DetachEntity(GetPlayerPed(-1), false, false)
+			SetEntityCoords(GetPlayerPed(-1), savedCoords.x, savedCoords.y, savedCoords.z) -- Teleport them
 			alreadyAttached = false
 		end
 	else 
@@ -305,10 +305,10 @@ Citizen.CreateThread(function()
 			SetEntityInvincible(GetPlayerPed(-1), true)
 			SetPlayerInvincible(GetPlayerPed(-1), true)
 			SetEntityVisible(GetPlayerPed(-1), false, 0)
-			--[[
+			----[[
 			if not alreadyAttached then
 				DetachEntity(GetPlayerPed(-1), false, false)
-				AttachEntityToEntity(GetPlayerPed(-1), pedSpectated, 0, 0, 0, 0, 0, 0, 0, false, false, true, 0, false)
+				AttachEntityToEntity(GetPlayerPed(-1), pedSpectated, 0, 0, 0, spectatedCoords.z - 10, 0, 0, 0, false, false, true, 0, false)
 				alreadyAttached = true
 				alreadyAttachedVeh = false
 			end
@@ -317,23 +317,23 @@ Citizen.CreateThread(function()
 			if spectatedVeh ~= nil and spectatedVeh ~= 0 then
 				if AreAnyVehicleSeatsFree(spectatedVeh) then
 					--TaskWarpPedIntoVehicle(GetPlayerPed(-1), spectatedVeh, -2)
-					SetEntityCoords(GetPlayerPed(-1), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z + 10)
-					SetEntityNoCollisionEntity(GetPlayerPed(-1), pedSpectated, true)
-					--[[
+					--SetEntityCoords(GetPlayerPed(-1), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z + 10)
+					--SetEntityNoCollisionEntity(GetPlayerPed(-1), pedSpectated, true)
+					----[[
 					if not alreadyAttachedVeh then
 						DetachEntity(GetPlayerPed(-1), false, false)
-						AttachEntityToEntity(GetPlayerPed(-1), spectatedVeh, GetEntityBoneIndexByName(spectatedVeh, "chassis_dummy"), 0, 0, 0, 0, 0, 0, false, false, false, 0, false)
+						AttachEntityToEntity(GetPlayerPed(-1), spectatedVeh, 0, 0, 0, spectatedCoords.z - 10, 0, 0, 0, false, false, false, 0, false)
 						alreadyAttached = false
 						alreadyAttachedVeh = true
 					end
 					--]]--
 				else
-					SetEntityCoords(GetPlayerPed(-1), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z + 10)
+					--SetEntityCoords(GetPlayerPed(-1), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z + 10)
 					SetEntityNoCollisionEntity(GetPlayerPed(-1), pedSpectated, true)
-					--[[
+					----[[
 					if not alreadyAttachedVeh then
 						DetachEntity(GetPlayerPed(-1), false, false)
-						AttachEntityToEntity(GetPlayerPed(-1), spectatedVeh, GetEntityBoneIndexByName(spectatedVeh, "chassis_dummy"), 0, 0, 0, 0, 0, 0, false, false, false, 0, false)
+						AttachEntityToEntity(GetPlayerPed(-1), spectatedVeh, 0, 0, 0, spectatedCoords.z - 10, 0, 0, 0, false, false, false, 0, false)
 						alreadyAttached = false
 						alreadyAttachedVeh = true
 					end
@@ -342,12 +342,12 @@ Citizen.CreateThread(function()
 				end
 			else
 				SetEntityNoCollisionEntity(GetPlayerPed(-1), pedSpectated, true)
-				SetEntityCoords(GetPlayerPed(-1), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z + 10)
+				--SetEntityCoords(GetPlayerPed(-1), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z + 10)
 				--SetEntityCoordsNoOffset(PlayerPedId(), spectatedCoords.x, spectatedCoords.y, spectatedCoords.z, 0, 0, 0)
-				--[[
+				----[[
 				if not alreadyAttached then
 					DetachEntity(GetPlayerPed(-1), false, false)
-					AttachEntityToEntity(GetPlayerPed(-1), pedSpectated, 0, 0, 0, 0, 0, 0, 0, false, false, true, 0, false)
+					AttachEntityToEntity(GetPlayerPed(-1), pedSpectated, 0, 0, 0, spectatedCoords.z - 10, 0, 0, 0, false, false, true, 0, false)
 					alreadyAttached = true
 					alreadyAttachedVeh = false
 				end
