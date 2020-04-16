@@ -1,4 +1,6 @@
 # BadgerTools
+## This script is discontinued, please use the revamped version listed below
+https://github.com/TheWolfBadger/BadgerTools-Revamped
 
 **Version 1.0**
 
